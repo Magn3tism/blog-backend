@@ -1,9 +1,10 @@
 require("dotenv").config();
-const http = require("http");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const logger = require("./utils/logger");
+const config = require("./utils/config");
 
 mongoose.set("strictQuery", true);
 
@@ -24,11 +25,10 @@ blogSchema.set("toJSON", {
 
 const Blog = mongoose.model("Blog", blogSchema);
 
-const mongoUrl = process.env.MONGODB_URI;
 mongoose
-  .connect(mongoUrl)
-  .then(() => console.log(`Connected to ${mongoUrl}`))
-  .catch((err) => console.error(err));
+  .connect(config.MONGODB_URI)
+  .then(() => logger.info(`Connected to ${config.MONGODB_URI}`))
+  .catch((err) => logger.error(err));
 
 app.use(cors());
 app.use(express.json());
@@ -47,7 +47,6 @@ app.post("/api/blogs", (request, response) => {
   });
 });
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  logger.info(`Server running on port ${config.PORT}`);
 });
