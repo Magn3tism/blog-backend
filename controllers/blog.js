@@ -18,4 +18,15 @@ blogsRouter.post("/", (request, response, next) => {
     .catch((err) => next(err));
 });
 
+blogsRouter.get("/:id", (request, response, next) => {
+  const id = request.params.id;
+
+  Blog.findById(id)
+    .then((blog) => {
+      if (blog) response.json(blog);
+      else response.status(404).end();
+    })
+    .catch((err) => next(err));
+});
+
 module.exports = blogsRouter;
