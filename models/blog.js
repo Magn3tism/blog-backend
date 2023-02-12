@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-const logger = require("./../utils/logger");
-const config = require("./../utils/config");
-
-mongoose.set("strictQuery", true);
 
 const blogSchema = new mongoose.Schema({
   title: {
@@ -33,10 +29,5 @@ blogSchema.set("toJSON", {
     delete returnedObject.__v;
   },
 });
-
-mongoose
-  .connect(config.MONGODB_URI)
-  .then(() => logger.info(`Connected to ${config.MONGODB_URI}`))
-  .catch((err) => logger.error(err));
 
 module.exports = mongoose.model("Blog", blogSchema);
