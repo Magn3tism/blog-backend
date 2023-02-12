@@ -2,8 +2,8 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-  "title": "A",
-  "author": "Basyra",
-  "url": "Rsdgv",
-  "likes": 50
+  "title": "Gfsdiy",
+  "author": "B454358",
+  "url": "G894s",
+  "likes": 88
 }
