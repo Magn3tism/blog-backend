@@ -108,9 +108,16 @@ const blogs = [
   },
 ];
 
+const blogsInDb = async () => {
+  const blogs = await Blog.find({});
+
+  return blogs.map((blog) => blog.toJSON());
+};
+
 module.exports = {
   listWithOneBlog,
   listWithTwoBlogs,
   listWithThreeBlogs,
   blogs,
+  blogsInDb,
 };
