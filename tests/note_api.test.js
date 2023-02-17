@@ -1,3 +1,4 @@
+const { upperFirst } = require("lodash");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 
@@ -86,7 +87,7 @@ describe("Post Blogs", () => {
 });
 
 describe("viewing a specific blog", () => {
-  test.only("succeeds with a valid id", async () => {
+  test("succeeds with a valid id", async () => {
     const blogToView = testHelper.blogs[0];
 
     const resultBlog = await api
@@ -111,6 +112,19 @@ describe("viewing a specific blog", () => {
 
     await api.get(`/api/blogs/${invalidId}`).expect(400);
   }, 100000);
+});
+
+describe("updating likes of a blog", () => {
+  test("likes are updated", async () => {
+    const blogToUpdate = testHelper.blogs[1];
+    const updatedLikes = blogToUpdate.likes * 2;
+
+    const response = await api
+      .put(`/api/blogs/${blogToUpdate._id}`)
+      .send({ ...blogToUpdate, likes: updatedLikes });
+
+    expect(response.body.likes).toEqual(updatedLikes);
+  });
 });
 
 afterAll(async () => {
