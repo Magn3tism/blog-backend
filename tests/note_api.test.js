@@ -25,6 +25,18 @@ describe("Get Blogs", () => {
 
     expect(response.body).toHaveLength(6);
   }, 100000);
+
+  test("all blogs are returned", async () => {
+    const response = await api.get("/api/blogs");
+    expect(response.body).toHaveLength(testHelper.blogs.length);
+  }, 100000);
+
+  test("a specific blog is returned", async () => {
+    const response = await api.get("/api/blogs");
+    const contents = response.body.map((r) => r.title);
+
+    expect(contents).toContain("TDD harms architecture");
+  }, 100000);
 });
 
 describe("Post Blogs", () => {
@@ -70,6 +82,34 @@ describe("Post Blogs", () => {
     await api.post("/api/blogs").send(titleMissing).expect(400);
     await api.post("/api/blogs").send(urlMissing).expect(400);
     await api.post("/api/blogs").send(bothMising).expect(400);
+  }, 100000);
+});
+
+describe("viewing a specific blog", () => {
+  test.only("succeeds with a valid id", async () => {
+    const blogToView = testHelper.blogs[0];
+
+    const resultBlog = await api
+      .get(`/api/blogs/${blogToView._id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    expect(resultBlog.body).toEqual(blogToView);
+  }, 100000);
+
+  test("fails with statuscode 404 if blog does not exist", async () => {
+    const validNonexistingId =
+      testHelper.blogs[0]._id
+        .toString()
+        .substring(0, testHelper.blogs[0]._id.toString().length - 1) + "d";
+
+    await api.get(`/api/blogs/${validNonexistingId}`).expect(404);
+  }, 100000);
+
+  test("fails with statuscode 400 if id is invalid", async () => {
+    const invalidId = "5a3d5da59070081a82a3445";
+
+    await api.get(`/api/blogs/${invalidId}`).expect(400);
   }, 100000);
 });
 
