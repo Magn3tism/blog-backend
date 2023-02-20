@@ -182,6 +182,40 @@ describe("when there is initially one user in db", () => {
   }, 10000);
 });
 
+describe("users aren't created without proper validation", () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+
+    const passwordHash = await bcrypt.hash("sekret", 10);
+    const user = new User({ username: "root", passwordHash });
+
+    await user.save();
+  });
+
+  test.only("password missing", async () => {
+    const usersAtStart = await testHelper.usersInDb();
+
+    const newUser = {
+      username: "electron",
+      name: ":)",
+      password: "ab",
+    };
+
+    const result = await api
+      .post("/api/users")
+      .send(newUser)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+
+    expect(result.body.error).toContain(
+      "password must be at least 3 characters long"
+    );
+
+    const usersAtEnd = await testHelper.usersInDb();
+    expect(usersAtEnd).toEqual(usersAtStart);
+  }, 100000);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
