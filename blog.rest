@@ -3,8 +3,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjMyOGYzODFjNTg3YjM2ZDIzMjU5YyIsImlhdCI6MTY3Njk1NzQ4NH0.Lm-TNtgMLv4H6v3UKbae6rFjKS4ajVAsBjzwm6A5kto
 
 {
-  "title": "JSON server",
-  "author": "Robert C. Martin",
-  "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/JSON-server.html",
-  "likes": 23
+  "title": "React vs Vue",
+  "author": "Edgar Allan Poe",
+  "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/reat-vs-vue.html",
+  "likes": 97
 }
