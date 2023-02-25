@@ -11,5 +11,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjMyOGYzO
 
 ###
 
-DELETE http://localhost:3001/api/blogs/63f4618db38f978938e73cce
+DELETE http://localhost:3003/api/blogs/63f84ce4cee6ab0645905be6
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjMyOGYzODFjNTg3YjM2ZDIzMjU5YyIsImlhdCI6MTY3Njk1NzQ4NH0.Lm-TNtgMLv4H6v3UKbae6rFjKS4ajVAsBjzwm6A5kto
+
+
+###
+
+PUT http://localhost:3003/api/blogs/63f825e92b7c9f810812e043
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjMyOGYzODFjNTg3YjM2ZDIzMjU5YyIsImlhdCI6MTY3Njk1NzQ4NH0.Lm-TNtgMLv4H6v3UKbae6rFjKS4ajVAsBjzwm6A5kto
+
+{
+  "title": "Integration",
+  "author": "Issac",
+  "url": "https://blogs.com/integration",
+  "likes": "100",
+  "user": "63f328f381c587b36d23259c"
+}
